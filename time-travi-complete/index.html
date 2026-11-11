@@ -9,6 +9,465 @@
     <link rel="stylesheet" href="style.css">
     <script src="javascript/welcome.js" defer></script>
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Vazirmatn', Tahoma, sans-serif;
+    background:
+        radial-gradient(ellipse at 75% 45%, #10232b 0%, transparent 42%),
+        radial-gradient(ellipse at 20% 90%, #17151b 0%, transparent 40%),
+        #050910;
+
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* پس زمینه ستاره ای */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        radial-gradient(#ffffff70 1px, transparent 1px),
+        radial-gradient(#eac66a70 1px, transparent 1px);
+
+    background-size: 120px 120px, 180px 180px;
+    background-position: 0 0, 60px 80px;
+
+    opacity: .3;
+    pointer-events: none;
+}
+
+/* هدر */
+
+.welcome-header {
+    height: 95px;
+    padding: 0 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ffffff16;
+    position: relative;
+    z-index: 2;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    text-decoration: none;
+    color: #f5d58a;
+}
+
+.brand-icon {
+    font-size: 35px;
+}
+
+.brand strong {
+    display: block;
+    font-size: 23px;
+}
+
+.brand small {
+    display: block;
+    color: #999;
+    font-size: 11px;
+}
+
+.header-text {
+    color: #999;
+    font-size: 13px;
+}
+
+/* محتوای اصلی */
+
+.welcome-container {
+    width: 85%;
+    max-width: 1250px;
+    min-height: 690px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-content {
+    flex: 1;
+    max-width: 620px;
+}
+
+.eyebrow {
+    color: #e6bd65;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.welcome-content h1 {
+    font-size: clamp(50px, 7vw, 88px);
+    font-weight: 800;
+    margin: 20px 0 5px;
+    color: #f5d98e;
+}
+
+.welcome-content h1 span {
+    color: #72dce9;
+}
+
+.welcome-content h2 {
+    color: #75dce8;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+
+.description {
+    color: #aaa;
+    font-size: 15px;
+    line-height: 2.2;
+    margin-bottom: 35px;
+}
+
+/* فرم */
+
+#welcomeForm label {
+    display: block;
+    margin-bottom: 12px;
+    color: #e6c879;
+    font-size: 14px;
+}
+
+.input-group {
+    display: flex;
+    gap: 12px;
+}
+
+.input-group input {
+    flex: 1;
+    min-width: 0;
+    height: 57px;
+
+    background: #101923;
+    border: 1px solid #36505c;
+    border-radius: 9px;
+
+    color: white;
+    padding: 0 18px;
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+    transition: .3s;
+}
+
+.input-group input:focus {
+    border-color: #71dce8;
+    box-shadow: 0 0 15px #71dce830;
+}
+
+.input-group button {
+    height: 57px;
+    padding: 0 25px;
+
+    background: linear-gradient(135deg, #f3d27d, #c69b42);
+    border: none;
+    border-radius: 9px;
+
+    color: #111;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.input-group button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px #d8ad5140;
+}
+
+.input-group button span {
+    margin-right: 8px;
+}
+
+#message {
+    color: #888;
+    font-size: 12px;
+    margin-top: 13px;
+}
+
+/* آمار */
+
+.features {
+    display: flex;
+    gap: 40px;
+    margin-top: 55px;
+}
+
+.features div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.features strong {
+    color: #e7c46e;
+    font-size: 25px;
+}
+
+.features span {
+    color: #999;
+    font-size: 12px;
+}
+
+/* ساعت متحرک */
+
+.time-visual {
+    width: 430px;
+    height: 430px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.clock-glow {
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    background: #4ed8e8;
+    filter: blur(100px);
+    opacity: .25;
+}
+
+.hourglass {
+    font-size: 105px;
+    z-index: 2;
+
+    filter: drop-shadow(0 0 20px #f4ca70);
+
+    animation: hourglassMove 4s ease-in-out infinite;
+}
+
+/* حلقه ها */
+
+.orbit {
+    position: absolute;
+    border: 1px solid #62d5e7;
+    border-radius: 50%;
+}
+
+.orbit-one {
+    width: 240px;
+    height: 240px;
+    animation: rotate 12s linear infinite;
+}
+
+.orbit-two {
+    width: 310px;
+    height: 310px;
+    border-color: #d5b65e;
+    animation: rotateReverse 17s linear infinite;
+}
+
+.orbit-three {
+    width: 390px;
+    height: 390px;
+    border-style: dashed;
+    border-color: #ffffff35;
+    animation: rotate 30s linear infinite;
+}
+
+/* ستاره های شناور */
+
+.floating-star {
+    position: absolute;
+    color: #f5d27c;
+    font-size: 25px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.star-one {
+    top: 35px;
+    right: 70px;
+}
+
+.star-two {
+    bottom: 65px;
+    left: 50px;
+    animation-delay: 1s;
+}
+
+.star-three {
+    top: 100px;
+    left: 30px;
+    animation-delay: 2s;
+}
+
+/* انیمیشن ها */
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotateReverse {
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes hourglassMove {
+    0%, 100% {
+        transform: translateY(0) rotate(-8deg);
+    }
+
+    50% {
+        transform: translateY(-18px) rotate(8deg);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: .5;
+    }
+
+    50% {
+        transform: translateY(-18px);
+        opacity: 1;
+    }
+}
+
+/* پایین صفحه */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+    font-size: 12px;
+    border-top: 1px solid #ffffff12;
+}
+
+/* موبایل و تبلت */
+
+@media (max-width: 900px) {
+
+    .welcome-container {
+        flex-direction: column-reverse;
+        justify-content: center;
+        text-align: center;
+        padding: 60px 0;
+        gap: 30px;
+    }
+
+    .time-visual {
+        width: 300px;
+        height: 300px;
+    }
+
+    .orbit-one {
+        width: 170px;
+        height: 170px;
+    }
+
+    .orbit-two {
+        width: 230px;
+        height: 230px;
+    }
+
+    .orbit-three {
+        width: 280px;
+        height: 280px;
+    }
+
+    .hourglass {
+        font-size: 75px;
+    }
+
+    .features {
+        justify-content: center;
+        gap: 25px;
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .welcome-header {
+        padding: 0 5%;
+        height: 75px;
+    }
+
+    .header-text {
+        display: none;
+    }
+
+    .welcome-container {
+        width: 90%;
+    }
+
+    .welcome-content h1 {
+        font-size: 48px;
+    }
+
+    .welcome-content h2 {
+        font-size: 21px;
+    }
+
+    .description {
+        font-size: 13px;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group button {
+        width: 100%;
+    }
+
+    .features {
+        gap: 20px;
+    }
+
+    .features strong {
+        font-size: 21px;
+    }
+
+    .features span {
+        font-size: 10px;
+    }
+
+}
+</style>
 
 <body>
 
@@ -118,6 +577,46 @@
     <footer>
         ساخته شده برای علاقه‌مندان به تاریخ | ردّ زمان
     </footer>
+<script>
+    // پیدا کردن عناصر صفحه
 
+const welcomeForm = document.querySelector("#welcomeForm");
+const visitorName = document.querySelector("#visitorName");
+const message = document.querySelector("#message");
+
+// هنگام ارسال فرم
+
+welcomeForm.addEventListener("submit", function (event) {
+
+    // جلوگیری از بارگذاری مجدد صفحه
+    event.preventDefault();
+
+    const name = visitorName.value.trim();
+
+    // بررسی خالی نبودن نام
+    if (name === "") {
+        message.textContent = "لطفاً نام خود را وارد کنید.";
+        message.style.color = "#ff7777";
+        return;
+    }
+
+    // ذخیره نام مسافر
+    sessionStorage.setItem("travelerName", name);
+
+    // نمایش پیام خوش آمدگویی
+    message.textContent = `خوش آمدی ${name}! ماشین زمان آماده حرکت است...`;
+    message.style.color = "#70dce8";
+
+    // افکت خروج
+    document.body.style.transition = "opacity 1s";
+    document.body.style.opacity = "0";
+
+    // انتقال به صفحه اصلی پروژه
+    setTimeout(function () {
+        window.location.href = "index.html";
+    }, 1000);
+
+});
+</script>
 </body>
 </html>
